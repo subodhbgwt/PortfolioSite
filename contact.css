@@ -1,0 +1,24 @@
+/* one screen: scrolling steps through the stages instead of moving the page */
+.ct { position: fixed; inset: 0; overflow: hidden; touch-action: none; }
+#wire { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: none; }
+
+
+.ct__info {
+  font-family: var(--mono);
+  position: absolute; left: var(--pad); right: var(--pad); top: 50%; transform: translateY(-50%);
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px 26px;
+  font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+  opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s;
+  text-shadow: 0 0 12px #090909, 0 0 4px #090909;
+}
+.ct__info.on { opacity: 1; visibility: visible; }
+.ct__name { margin: 0; font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+.ct__mail { text-transform: none; letter-spacing: .04em; font-size: 13px; }
+.ct__info a { border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .2s; }
+.ct__info a:hover { border-bottom-color: currentColor; }
+
+
+
+@media (max-width: 700px) {
+  .ct__info { flex-direction: column; align-items: center; gap: 12px; }
+}

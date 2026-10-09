@@ -1,0 +1,35 @@
+/* one screen, no scrolling */
+.proj { position: fixed; inset: 0; overflow: hidden; }
+#words { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.proj__intro { position: absolute; left: var(--pad); top: 96px; width: min(640px, 52vw); pointer-events: none; }
+.proj__kicker { color: var(--white-dim); margin: 0 0 12px; }
+.proj__title { margin: 0 0 18px; font-size: clamp(28px, 3.8vw, 54px); line-height: 1; font-weight: 800; font-stretch: 112%; letter-spacing: -0.01em; }
+.proj__text { margin: 0; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.55; font-weight: 300; color: #d9d9d5; max-width: 56ch; }
+.proj__figure { margin: 16px 0 0; color: var(--white-dim); }
+
+/* image, framed like the portfolio viewfinder; click for the next one */
+.proj__shot {
+  position: absolute; right: var(--pad); top: 96px;
+  width: min(40vw, 620px); margin: 0;
+}
+.proj__shot[hidden] { display: none; }
+.proj__shot-btn { display: block; width: 100%; padding: 0; border: 1px solid #2a2a28; background: #101010; position: relative; }
+.proj__shot-btn::before, .proj__shot-btn::after { content: ""; position: absolute; width: 12px; height: 12px; border: 0 solid var(--white); }
+.proj__shot-btn::before { left: -1px; top: -1px; border-left-width: 2px; border-top-width: 2px; }
+.proj__shot-btn::after { right: -1px; bottom: -1px; border-right-width: 2px; border-bottom-width: 2px; }
+.proj__shot img { display: block; width: 100%; height: auto; max-height: 42vh; object-fit: contain; }
+.proj__shot.invert img { filter: grayscale(1) invert(1) contrast(1.1); }
+.proj__shot figcaption { margin-top: 8px; color: var(--white-dim); }
+
+.proj__link a { color: var(--white); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+/* small screens can't fit it all, so they scroll */
+@media (max-width: 760px) {
+  body { overflow-y: auto; }
+  .proj { position: relative; min-height: 100vh; overflow: visible; padding: 90px var(--pad) 80px; }
+  #words { position: fixed; opacity: 0.35; }
+  .proj__intro, .proj__shot { position: relative; left: auto; right: auto; top: auto; width: 100%; }
+  .proj__shot { margin-top: 24px; }
+  .proj__nav { position: fixed; background: var(--black); }
+}

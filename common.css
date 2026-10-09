@@ -1,0 +1,111 @@
+:root {
+  --paper: #e6e6e3;
+  --ink: #0b0b0b;
+  --dim: #8a8a86;
+  --black: #090909;
+  --white: #ececea;
+  --white-dim: #6f6f6c;
+  --pad: clamp(14px, 1.8vw, 24px);
+  --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --accent: #ff8a1f;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+  cursor: none;
+}
+body.dark { background: var(--black); color: var(--white); }
+body.scroll { overflow-y: auto; overflow-x: hidden; }
+a, button { color: inherit; font: inherit; cursor: none; }
+button { background: none; border: 0; padding: 0; }
+a { text-decoration: none; }
+:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* small labels are set in mono, like a terminal */
+.caps {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.tiny {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --- nav --- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--pad);
+  pointer-events: none;
+  font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase;
+}
+.nav > * { pointer-events: auto; }
+.nav__home { display: flex; flex-direction: column; gap: 4px; }
+.nav__home b { font-family: var(--font); font-weight: 800; font-size: 13px; letter-spacing: .02em; }
+.nav__clock { font-size: 10px; opacity: .55; font-variant-numeric: tabular-nums; }
+.nav__links { display: flex; gap: 18px; align-items: baseline; }
+.nav__links a { position: relative; display: flex; gap: 6px; align-items: baseline; }
+.nav__links i { font-style: normal; font-size: 9px; opacity: .5; }
+.nav__links a:hover i, .nav__links a[aria-current="page"] i { opacity: 1; color: var(--accent); }
+.nav__links a[aria-current="page"]::before {
+  content: ""; position: absolute; left: -10px; top: 50%; width: 5px; height: 5px; margin-top: -3px; background: var(--accent);
+}
+
+/* --- status bar: one line along the bottom with the page's key hints --- */
+.status {
+  position: absolute; left: var(--pad); right: var(--pad); bottom: var(--pad); z-index: 3;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  margin: 0; padding-top: 9px;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.status > span:first-child { opacity: .6; }
+.status__keys { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px 18px; }
+.status button { text-transform: inherit; letter-spacing: inherit; }
+.status__keys > * { display: inline-flex; align-items: center; gap: 6px; opacity: .75; transition: opacity .2s, color .2s; }
+.status__keys a:hover, .status__keys button:hover { opacity: 1; color: var(--accent); }
+kbd {
+  font: inherit; font-size: 9px; line-height: 1; padding: 3px 5px 2px;
+  border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 2px;
+}
+
+/* --- cursor: a chart crosshair with a coordinate readout --- */
+.cur { position: fixed; inset: 0; z-index: 100; pointer-events: none; mix-blend-mode: difference; }
+.cur__h, .cur__v { position: fixed; background: rgba(255,255,255,.22); }
+.cur__h { left: 0; right: 0; top: 0; height: 1px; }
+.cur__v { top: 0; bottom: 0; left: 0; width: 1px; }
+.cur__dot { position: fixed; left: 0; top: 0; width: 5px; height: 5px; margin: -2px 0 0 -2px; background: #fff; }
+.cur__tag { position: fixed; left: 0; top: 0; font: 500 9px/1 var(--mono); letter-spacing: .06em; color: #fff; white-space: pre; font-variant-numeric: tabular-nums; }
+.cur.hover .cur__h, .cur.hover .cur__v, .cur.snap .cur__h, .cur.snap .cur__v { background: rgba(255,255,255,.5); }
+@media (hover: none) { .cur { display: none; } body, a, button { cursor: auto; } }
+
+/* --- page transition: bars rise in a bell shape, middle first --- */
+.wipe { position: fixed; inset: 0; z-index: 40; display: flex; pointer-events: none; overflow: hidden; }
+.wipe i {
+  flex: 1; height: 100%; margin-right: -1px;
+  background: var(--black); border-top: 2px solid var(--accent);
+  transform: translateY(101%);
+}
+body.wipe-in .wipe i { transform: translateY(0); transition: transform .38s cubic-bezier(.7,0,.3,1) var(--d); }
+body.wipe-shut .wipe i { transform: translateY(0); }
+body.wipe-out .wipe i { transform: translateY(-101%); transition: transform .5s cubic-bezier(.6,0,.2,1) var(--d); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe { display: none; }
+}

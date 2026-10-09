@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio · Subodh Bhagwat</title>
+<meta name="description" content="Projects by Subodh Bhagwat: an AI analyst agent, a prediction-market research harness, a trading bot, a Monte Carlo options pricer and more." />
+<link rel="canonical" href="https://subodhb.com/work.html" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#090909" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Subodh Bhagwat" />
+<meta property="og:title" content="Portfolio · Subodh Bhagwat" />
+<meta property="og:description" content="Projects by Subodh Bhagwat: an AI analyst agent, a prediction-market research harness, a trading bot, a Monte Carlo options pricer and more." />
+<meta property="og:url" content="https://subodhb.com/work.html" />
+<meta property="og:image" content="https://subodhb.com/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="common.css?v=34" />
+<link rel="stylesheet" href="work.css?v=34" />
+</head>
+<body class="dark">
+
+<main class="port">
+  <h1 class="sr-only">Portfolio</h1>
+  <p class="port__head tiny"><span>Portfolio · <b id="total"></b> positions · <span id="span"></span></span><span>Newest first</span></p>
+
+  <div class="port__table">
+    <div class="port__cols tiny" aria-hidden="true"><span>#</span><span>Project</span><span>Trace</span><span>Year</span></div>
+    <div id="rows" role="list"></div>
+  </div>
+
+  <aside class="port__preview" aria-live="polite">
+    <a class="port__shot" id="shot" href="#"><img id="shot-img" alt="" hidden /><span id="shot-txt" hidden></span></a>
+    <p class="tiny" id="pcap"></p>
+    <h2 id="ptitle"></h2>
+    <p id="ptext"></p>
+    <p class="caps" id="pfig"></p>
+    <a class="caps" id="popen" href="#">Open project →</a>
+  </aside>
+
+  <footer class="status tiny">
+    <span>Selected work</span>
+    <span class="status__keys"><span><kbd>↑↓</kbd>select</span><span><kbd>Enter</kbd>open</span></span>
+  </footer>
+</main>
+
+<script src="common.js?v=34"></script>
+<script src="data.js?v=34"></script>
+<script src="work.js?v=34"></script>
+</body>
+</html>
