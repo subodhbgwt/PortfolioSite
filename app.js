@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Lenis Smooth Scrolling ---
     const lenis = new Lenis({
         duration: 1.2, // smoothing duration
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Apple-like easing
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // ease-out
         direction: 'vertical',
         gestureDirection: 'vertical',
         smooth: true,
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             speed: 600,
             on: {
                 init: function () {
-                    // Force a recalculation on load to guarantee the first slide gets active class
+                    // recalc on load so the first slide gets the active class
                     setTimeout(() => {
                         this.update();
                     }, 50);
@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 
-    // Refresh ScrollTrigger to ensure accurate calculations after initial paint
+    // refresh ScrollTrigger once everything has painted
     window.addEventListener('load', () => {
         ScrollTrigger.refresh();
     });
