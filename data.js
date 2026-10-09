@@ -74,7 +74,7 @@ const PROJECTS = [
     year: 2026,
     caption: "SELF-INITIATED · AUTOMATION",
     figure: "RUNS EVERY MORNING",
-    text: "Checks company job boards (Greenhouse, Lever, Ashby, Workday and the banks' own boards) for student roles in Europe, filters them down to what I would actually apply to, and sends me a Telegram message every morning, with an Excel tracker on the side. Forked from an open-source alerter and retargeted for a European quant, tech, finance and consulting search.",
+    text: "A bot that reads company job boards every morning and messages me on Telegram when a student role in Europe looks worth applying to. Everything it finds also goes into an Excel tracker. I started from an open-source alerter and rewrote the filters for my own search.",
     graph: ["scrape", "filter", "location", "track", "student role", "dedupe", "Telegram", "tracker", "schedule", "catch up"],
     field: ["Greenhouse", "Lever", "Ashby", "Workday", "JobSpy", "Jane Street", "IMC", "SIG", "spring week", "off-cycle", "Stockholm", "London", "Zurich", "Amsterdam", "Excel", "state.json", "asyncio", "08:00", "Monday", "fork", "tests"],
     media: [],
