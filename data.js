@@ -98,7 +98,7 @@ const PROJECTS = [
     name: "Image processing on FPGA",
     title: "IMAGE PROCESSING ON FPGA",
     year: 2025,
-    caption: "KTH IS1500 · WITH TINGYUAN HU",
+    caption: "KTH IS1500 · COURSE PROJECT",
     figure: "RISC-V · C · ASSEMBLY",
     text: "Convolution filters (blur, sharpen, edge detection and emboss) running on a RISC-V soft core on a DE10-Lite board. Two filters can be chained, the switches pick them, and the result shows on a VGA monitor while performance counters measure the cycles each convolution takes.",
     graph: ["convolution", "kernel", "Gaussian", "edge", "emboss", "chain", "switches", "VGA", "cycles", "RISC-V"],
