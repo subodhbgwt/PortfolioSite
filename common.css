@@ -96,6 +96,8 @@ kbd {
 @media (hover: none) { .cur { display: none; } body, a, button { cursor: auto; } }
 
 /* --- page transition: bars rise in a bell shape, middle first --- */
+html.wipe-pending, html.wipe-pending body { background: var(--black); }
+html.wipe-pending body > * { visibility: hidden; }
 .wipe { position: fixed; inset: 0; z-index: 40; display: flex; pointer-events: none; overflow: hidden; }
 .wipe i {
   flex: 1; height: 100%; margin-right: -1px;

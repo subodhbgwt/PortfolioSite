@@ -69,13 +69,17 @@ function buildCurtain() {
 
   let arrived = false;
   try { arrived = sessionStorage.getItem("wipe") === "1"; sessionStorage.removeItem("wipe"); } catch (e) {}
+  if (REDUCED) document.documentElement.classList.remove("wipe-pending");
   if (arrived && !REDUCED) {
     document.body.classList.add("wipe-shut");
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.documentElement.classList.remove("wipe-pending");
+    // let the closed bars paint once, then open them
+    void wipe.offsetWidth;
+    setTimeout(() => {
       document.body.classList.add("wipe-out");
       document.body.classList.remove("wipe-shut");
       setTimeout(() => document.body.classList.remove("wipe-out"), 900);
-    }));
+    }, 40);
   }
 
   document.addEventListener("click", (e) => {
@@ -87,7 +91,7 @@ function buildCurtain() {
     if (REDUCED) { location.href = a.href; return; }
     try { sessionStorage.setItem("wipe", "1"); } catch (err) {}
     document.body.classList.add("wipe-in");
-    setTimeout(() => { location.href = a.href; }, 640);
+    setTimeout(() => { location.href = a.href; }, 700);
   });
   window.addEventListener("pageshow", (e) => {
     if (e.persisted) document.body.classList.remove("wipe-in", "wipe-shut");

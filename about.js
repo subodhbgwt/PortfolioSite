@@ -435,7 +435,13 @@
     if (lastFocus) lastFocus.focus();
   }
   document.getElementById("panel-close").addEventListener("click", close);
-  window.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panel.hidden) close();
+    // the status bar's keys, while the cloud is showing
+    if (!document.body.classList.contains("at-about") || !panel.hidden) return;
+    if (e.key === "ArrowUp") window.showScene("home");
+    if (e.key === "ArrowRight") document.querySelector('.about__status a[href="work.html"]').click();
+  });
 
   window.addEventListener("scene", (e) => {
     if (e.detail === "about" && !running) { running = true; requestAnimationFrame(frame); }

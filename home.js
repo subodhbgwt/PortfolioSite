@@ -218,6 +218,10 @@ setupPage("home");
     touchY = null;
   });
 
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown" && introDone && !document.body.classList.contains("at-about")) show("about");
+  });
+
   if (location.hash === "#about") show("about");
   // the nav's "About me" link only changes the hash on this page
   window.addEventListener("hashchange", () => show(location.hash === "#about" ? "about" : "home"));
