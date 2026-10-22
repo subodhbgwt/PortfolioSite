@@ -1,7 +1,8 @@
 // Contact: the details, with a Monte Carlo simulation playing behind them once
 // the page has loaded. Price paths (geometric Brownian motion, fanned out in 3D)
 // grow in, break up into the points they are made of, and those points fall
-// into a histogram of standardised moves that lands on the normal curve.
+// into a histogram of standardised moves that lands on the normal curve,
+// then it runs back to the paths and starts again.
 // Moving the mouse tilts the fan while it is still 3D.
 setupPage("contact");
 
@@ -55,15 +56,19 @@ setupPage("contact");
 
   function frame(now) {
     if (t0 === null) t0 = now;
-    const t = (now - t0) / 1000; // seconds since the page finished loading
+    // seconds since the page finished loading; with reduced motion, hold on the finished histogram
+    const t = REDUCED ? 8 : (now - t0) / 1000;
     const { ctx, w, h } = fitCanvas(canvas);
     ctx.clearRect(0, 0, w, h);
 
-    // the timeline: paths grow in, turn into dots, the dots fall into the histogram, the curve draws
+    // the timeline loops every 16 s: paths turn into dots, the dots fall into the
+    // histogram and the curve draws, then it all runs backwards to the paths.
+    // The paths only grow in the first time.
     const reach = Math.max(2, Math.floor((1 - Math.pow(1 - ramp(t, 0, 2), 3)) * K));
-    const toDots = ramp(t, 2.6, 3.6);
-    const fall = smooth(ramp(t, 4.2, 6));
-    const curve = ramp(t, 5.9, 7);
+    const u = t % 16;
+    const toDots = ramp(u, 2.6, 3.6) * (1 - ramp(u, 13.6, 14.6));
+    const fall = smooth(ramp(u, 4.2, 6)) * (1 - smooth(ramp(u, 11.4, 13.2)));
+    const curve = ramp(u, 5.9, 7) * (1 - ramp(u, 10.4, 11.2));
 
     // the fan stops turning as it falls into the histogram
     if (!REDUCED) spin += 0.002 * (1 - fall);
@@ -139,7 +144,6 @@ setupPage("contact");
 
   // start once everything has loaded, so the animation isn't fighting the page load
   const start = () => {
-    if (REDUCED) t0 = -1e9; // straight to the finished histogram
     requestAnimationFrame(frame);
   };
   if (document.readyState === "complete") start(); else window.addEventListener("load", start);
