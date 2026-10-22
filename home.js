@@ -1,7 +1,7 @@
 // Home: a price chart under the intro, with the things I work on flagged on it.
-// It stays still until you move the mouse; then the tape ticks along with
-// the movement and stops when you stop. Over the chart a crosshair reads off
-// the price. The project list further down is built from data.js.
+// The tape ticks along on its own, sliding smoothly between ticks. Over the
+// chart a crosshair reads off the price. The project list further down is
+// built from data.js.
 setupPage("home");
 
 (() => {
@@ -36,12 +36,13 @@ setupPage("home");
   const flags = order.map((k, j) => ({ ...k, i: Math.round((j + 0.5) * (N / order.length)), up: j % 2 === 0, len: k.bold ? 46 : 30 }));
 
   let mouseX = null; // over the chart, for the crosshair
+  let shift = 0;     // how far the tape has slid towards the next tick, 0 to 1
   function draw() {
     const { ctx, w, h } = fitCanvas(canvas);
     ctx.clearRect(0, 0, w, h);
     const right = w - 56, mid = h * 0.5;
     const dx = right / (N - 1);
-    const X = (i) => i * dx;
+    const X = (i) => (i - shift) * dx;
     // fixed scale, so the line moves inside the chart rather than the chart rescaling
     const Y = (i) => mid - pts[i] * h * 0.028;
     const price = (y) => (100 * Math.exp(((mid - y) / (h * 0.028)) * 0.01)).toFixed(2);
@@ -89,7 +90,7 @@ setupPage("home");
 
     // crosshair with the price where it meets the line
     if (mouseX !== null && mouseX < right) {
-      const i = Math.max(0, Math.min(N - 1, Math.round(mouseX / dx)));
+      const i = Math.max(0, Math.min(N - 1, Math.round(mouseX / dx + shift)));
       ctx.fillStyle = "rgba(255,138,31,0.6)";
       ctx.fillRect(Math.round(X(i)), 0, 1, h);
       ctx.fillStyle = ACCENT;
@@ -106,24 +107,25 @@ setupPage("home");
     }
   }
 
-  // moving the mouse anywhere runs the tape: one tick per 14px of movement
-  let travel = 0, lastX = null, lastY = null, queued = false;
-  const redraw = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; draw(); }); } };
-  window.addEventListener("pointermove", (e) => {
-    if (lastX !== null && !REDUCED) {
-      travel += Math.hypot(e.clientX - lastX, e.clientY - lastY);
-      while (travel > 14) {
-        travel -= 14;
-        pts.shift(); pts.push(next());
-        for (const f of flags) if (--f.i < 0) f.i += N; // a flag that leaves on the left comes back on the right
-      }
+  // the tape moves one point every TICK ms, sliding smoothly in between
+  const TICK = 220;
+  let last = null;
+  function frame(now) {
+    if (last === null) last = now;
+    while (now - last > TICK) {
+      last += TICK;
+      pts.shift(); pts.push(next());
+      for (const f of flags) if (--f.i < 0) f.i += N; // a flag that leaves on the left comes back on the right
     }
-    lastX = e.clientX; lastY = e.clientY;
+    shift = (now - last) / TICK;
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("pointermove", (e) => {
     const r = canvas.getBoundingClientRect();
     mouseX = e.clientY >= r.top && e.clientY <= r.bottom ? e.clientX - r.left : null;
-    redraw();
   });
-  canvas.addEventListener("pointerleave", () => { mouseX = null; redraw(); });
-  window.addEventListener("resize", draw);
-  document.fonts.ready.then(draw);
+  canvas.addEventListener("pointerleave", () => { mouseX = null; });
+  document.fonts.ready.then(() => { draw(); if (!REDUCED) requestAnimationFrame(frame); });
 })();
