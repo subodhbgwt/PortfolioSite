@@ -8,6 +8,7 @@ setupPage("contact");
 
 (() => {
   const canvas = document.getElementById("paths");
+  const list = document.querySelector(".ct__list");
   const N = 48, K = 96, MU = 0.06, SIGMA = 0.22;
   const gauss = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
 
@@ -91,10 +92,11 @@ setupPage("contact");
     pitch += (tPitch - pitch) * 0.06;
 
     // on wide screens the animation has the right half to itself, next to the details;
-    // on narrow ones it sits faintly behind them
+    // on narrow ones it goes in the space under them
     const wide = w >= 900;
-    const ax0 = wide ? w * 0.52 : 0, ax1 = wide ? w - 40 : w;
-    const ay0 = wide ? h * 0.2 : h * 0.15, ay1 = wide ? h * 0.82 : h * 0.95;
+    const below = list.getBoundingClientRect().bottom + 24;
+    const ax0 = wide ? w * 0.52 : 16, ax1 = wide ? w - 40 : w - 16;
+    const ay0 = wide ? h * 0.2 : Math.min(below, h - 160), ay1 = wide ? h * 0.82 : h - 24;
     const aw = ax1 - ax0, ah = ay1 - ay0;
 
     const cs = Math.cos(spin), ss = Math.sin(spin), cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);

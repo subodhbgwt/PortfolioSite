@@ -76,6 +76,17 @@ a { text-decoration: none; }
   content: ""; position: absolute; left: -10px; top: 50%; width: 5px; height: 5px; margin-top: -3px; background: var(--accent);
 }
 
+/* phones: one line of nav with bigger tap areas, no numbers */
+@media (max-width: 560px) {
+  .nav { align-items: center; }
+  .nav__home b { white-space: nowrap; font-size: 12px; }
+  .nav__clock { display: none; }
+  .nav__links { gap: 4px; }
+  .nav__links a { padding: 8px 6px; white-space: nowrap; }
+  .nav__links i { display: none; }
+  .nav__links a[aria-current="page"]::before { left: 0; }
+}
+
 /* --- status bar: one line along the bottom with the page's key hints --- */
 .status {
   position: absolute; left: var(--pad); right: var(--pad); bottom: var(--pad); z-index: 3;
@@ -92,6 +103,8 @@ kbd {
   font: inherit; font-size: 9px; line-height: 1; padding: 3px 5px 2px;
   border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 2px;
 }
+/* touch screens have no keyboard to press */
+@media (hover: none), (max-width: 560px) { .status__keys { display: none; } }
 
 /* --- page transition: bars rise in a bell shape, middle first --- */
 html.wipe-pending, html.wipe-pending body { background: var(--black); }

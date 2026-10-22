@@ -59,6 +59,12 @@
 #pfig { color: var(--accent); }
 #popen { align-self: flex-start; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
 
+@media (max-width: 560px) {
+  .port__cols, .row { grid-template-columns: 24px 1fr 36px !important; }
+  .row__trace, .port__cols span:nth-child(3) { display: none; }
+  .row__name b { white-space: normal; }
+  .port__head span:last-child { display: none; }
+}
 @media (max-width: 760px) {
   .port__table { width: auto; right: var(--pad); bottom: 64px; scrollbar-width: thin; }
   .port__preview { display: none; }
