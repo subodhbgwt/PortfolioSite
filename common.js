@@ -10,7 +10,7 @@ function buildNav(current) {
     <a href="index.html" class="nav__home"><b>Subodh Bhagwat</b><span class="nav__clock" id="clock" aria-hidden="true"></span></a>
     <nav class="nav__links">
       ${link("index.html#about", "about", "01", "About me")}
-      ${link("work.html", "work", "02", "Portfolio")}
+      ${link("work.html", "work", "02", "Projects")}
       ${link("contact.html", "contact", "03", "Contact")}
     </nav>`;
   document.body.prepend(nav);

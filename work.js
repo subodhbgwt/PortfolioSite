@@ -1,4 +1,4 @@
-// Portfolio, laid out like a positions screen: one row per project with a
+// Projects, laid out like a positions screen: one row per project with a
 // small trace next to it, and a preview of the selected one on the right.
 // Hover, scroll or use the arrow keys to move; click or Enter to open.
 setupPage("work");

@@ -1,5 +1,5 @@
 /* home: a dark intro with the chart, then the rest laid out like the
-   portfolio table */
+   projects table */
 body.scroll .nav { background: inherit; }
 
 .home { max-width: 1040px; margin: 0 auto; padding: 120px var(--pad) 48px; }
@@ -20,7 +20,7 @@ body.scroll .nav { background: inherit; }
 .more a { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
 .more a:hover { color: var(--accent); }
 
-/* rows, styled like the portfolio table */
+/* rows, styled like the projects table */
 .rows { list-style: none; margin: 0; padding: 0; }
 .rows li { border-bottom: 1px solid rgba(236,236,234,.08); }
 .rows a, .rows div { position: relative; display: grid; grid-template-columns: 96px 1fr; gap: 4px 16px; align-items: baseline; padding: 11px 10px; transition: background-color .2s ease; }
