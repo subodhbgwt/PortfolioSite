@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script>try{if(sessionStorage.getItem("wipe")==="1")document.documentElement.classList.add("wipe-pending")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project · Subodh Bhagwat</title>
 <meta name="description" content="A project by Subodh Bhagwat, Computer Science and Engineering at KTH, Stockholm." />
@@ -21,36 +20,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="common.css?v=38" />
-<link rel="stylesheet" href="project.css?v=38" />
+<link rel="stylesheet" href="common.css?v=40" />
+<link rel="stylesheet" href="project.css?v=40" />
 </head>
-<body class="dark">
+<body class="dark scroll">
 
-<main class="proj">
-  <canvas id="words" aria-hidden="true"></canvas>
+<main class="pj">
+  <p class="caps pj__back"><a href="work.html" id="index">← All projects</a></p>
+  <p class="tiny pj__kicker" id="kicker"></p>
+  <h1 class="pj__title" id="title"></h1>
+  <p class="caps pj__figure" id="figure"></p>
 
-  <div class="proj__intro" id="intro">
-    <p class="tiny proj__kicker" id="kicker"></p>
-    <h1 class="proj__title" id="title"></h1>
-    <p class="proj__text" id="text"></p>
-    <p class="caps proj__figure" id="figure"></p>
-  </div>
-
-  <figure class="proj__shot" id="shot" hidden>
-    <button type="button" class="proj__shot-btn" id="shot-btn" aria-label="Next image">
-      <img id="shot-img" alt="" />
-    </button>
+  <figure class="pj__shot" id="shot" hidden>
+    <button type="button" class="pj__shot-btn" id="shot-btn" aria-label="Next image"><img id="shot-img" alt="" /></button>
     <figcaption class="tiny" id="shot-cap"></figcaption>
   </figure>
 
-  <footer class="status tiny proj__nav" aria-label="Projects">
-    <span class="proj__link" id="link"></span>
-    <span class="status__keys"><a href="#" id="prev"><kbd>←</kbd>previous</a><a href="#" id="next"><kbd>→</kbd>next</a><a href="work.html" id="index"><kbd>Esc</kbd>all work</a></span>
-  </footer>
+  <section class="pj__part"><h2 class="tiny">What it is</h2><p id="what"></p></section>
+  <section class="pj__part"><h2 class="tiny">How I worked</h2><p id="how"></p></section>
+  <section class="pj__part"><h2 class="tiny">What I learned</h2><p id="learned"></p></section>
+  <p class="caps pj__link" id="link"></p>
+
+  <nav class="pj__nav caps" aria-label="Other projects">
+    <a href="#" id="prev"></a>
+    <a href="#" id="next"></a>
+  </nav>
 </main>
 
-<script src="common.js?v=38"></script>
-<script src="data.js?v=38"></script>
-<script src="project.js?v=38"></script>
+<script src="common.js?v=40"></script>
+<script src="data.js?v=40"></script>
+<script src="project.js?v=40"></script>
 </body>
 </html>

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script>try{if(sessionStorage.getItem("wipe")==="1")document.documentElement.classList.add("wipe-pending")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Subodh Bhagwat · KTH, Stockholm</title>
 <meta name="description" content="Subodh Bhagwat studies Computer Science and Engineering at KTH in Stockholm, heading into Financial Mathematics. Trading tools, Monte Carlo simulations and AI agents." />
@@ -22,49 +21,81 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="common.css?v=38" />
-<link rel="stylesheet" href="style.css?v=38" />
+<link rel="stylesheet" href="common.css?v=40" />
+<link rel="stylesheet" href="style.css?v=40" />
 </head>
-<body>
+<body class="scroll">
 
-<main>
-  <h1 class="sr-only">Subodh Bhagwat, Computer Science and Engineering at KTH. Trading tools, simulations and AI agents.</h1>
-  <p class="sr-only">Subodh Bhagwat is a third-year Computer Science and Engineering student at KTH Royal Institute of Technology in Stockholm, continuing into the master's track in Financial Mathematics. He builds trading tools, Monte Carlo simulations and AI agents. Find him on <a href="https://www.linkedin.com/in/subodh-bhagwat/">LinkedIn</a> and <a href="https://github.com/subodhbgwt">GitHub</a>.</p>
-
-  <!-- home: the price tape -->
-  <section id="home" class="scene scene--home" aria-label="Intro">
-    <canvas id="home-canvas"></canvas>
-    <footer class="status tiny home__status">
-      <span>Computer Science &amp; Engineering · KTH</span>
-      <span class="status__keys"><button type="button" id="to-about"><kbd>Scroll</kbd>about me</button></span>
-    </footer>
+<main class="home">
+  <section class="hero">
+    <p class="tiny hero__kicker">KTH · Stockholm</p>
+    <h1>Subodh Bhagwat</h1>
+    <p class="hero__lead">I study Computer Science &amp; Engineering at KTH and build tools for markets and data, then spend most of my time checking whether the numbers hold up.</p>
+    <p class="hero__links caps"><a href="work.html">See my projects</a><a href="#about">About me</a><a href="contact.html">Contact</a></p>
+    <canvas id="home-canvas" aria-hidden="true"></canvas>
   </section>
 
-  <!-- about: a 3D constellation of topics -->
-  <section id="about" class="scene scene--about" aria-label="About me">
-    <canvas id="about-canvas"></canvas>
-    <ul class="about__labels" id="about-labels"></ul>
-    <footer class="status tiny about__status">
-      <span>05 topics</span>
-      <span class="status__keys"><span><kbd>Drag</kbd>rotate</span><span><kbd>Click</kbd>print</span><button type="button" id="to-home"><kbd>↑</kbd>home</button><a href="work.html"><kbd>→</kbd>portfolio</a></span>
-    </footer>
-
-    <div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>
-      <button class="panel__back tiny" type="button" id="panel-close"><kbd>Esc</kbd>close</button>
-      <div class="panel__inner">
-        <p class="panel__kicker tiny" id="panel-kicker"></p>
-        <h2 class="panel__title" id="panel-title"></h2>
-        <div class="panel__body" id="panel-body"></div>
-      </div>
-      <nav class="panel__tabs caps" id="panel-tabs" aria-label="Topics"></nav>
-      <p class="panel__big" id="panel-big" aria-hidden="true"></p>
+  <section class="block" id="about">
+    <h2 class="tiny">01 / About</h2>
+    <div>
+      <ul class="rows">
+        <li><div><i>Now</i><b>BSc Computer Science &amp; Engineering</b><span>Year 3 at KTH</span></div></li>
+        <li><div><i>Next</i><b>MSc Financial Mathematics</b><span>At KTH, from 2027</span></div></li>
+        <li><div><i>Base</i><b>Stockholm, Sweden</b><span></span></div></li>
+        <li><div><i>Roots</i><b>India → Muscat → Sweden</b><span>Moved to Sweden at five</span></div></li>
+      </ul>
     </div>
   </section>
+
+  <section class="block" id="experience">
+    <h2 class="tiny">02 / Experience</h2>
+    <ul class="rows">
+      <li><div><i>2025–26</i><b>Project co-lead</b><span>Bengt Dahlgren industry project, through KTH</span></div></li>
+      <li><div><i>2026</i><b>Florent Code League</b><span>Reached #1, finished 13th of about 130</span></div></li>
+      <li><div><i>2026–</i><b>D+A Strategies</b><span>Selected member</span></div></li>
+      <li><div><i>2025</i><b>Finance committee</b><span>Datasektionen's student reception</span></div></li>
+      <li><div><i>2025</i><b>McKinsey Forward</b><span>Programme participant</span></div></li>
+    </ul>
+  </section>
+
+  <section class="block" id="education">
+    <h2 class="tiny">03 / Education</h2>
+    <ul class="rows">
+      <li><div><i>2024–27</i><b>BSc Computer Science &amp; Engineering</b><span>KTH civilingenjör, years 1–3</span></div></li>
+      <li><div><i>2027–29</i><b>MSc Financial Mathematics</b><span>KTH civilingenjör, years 4–5</span></div></li>
+      <li><div><i>GPA</i><b>4.64 / 5.0</b><span>KTH, so far</span></div></li>
+      <li><div><i>2021–24</i><b>Kungsholmens gymnasium</b><span>Natural science, taught in English</span></div></li>
+      <li><div><i>Languages</i><b>Swedish · English · Hindi · Marathi</b><span>Plus basic Mandarin</span></div></li>
+    </ul>
+  </section>
+
+  <section class="block" id="skills">
+    <h2 class="tiny">04 / Skills</h2>
+    <ul class="rows">
+      <li><div><i>Code</i><b>Python · C · Java · Go · Haskell · SQL</b><span></span></div></li>
+      <li><div><i>Systems</i><b>RISC-V assembly · C on FPGA</b><span></span></div></li>
+      <li><div><i>Data</i><b>NumPy · pandas · Matplotlib · Excel</b><span></span></div></li>
+      <li><div><i>Tools</i><b>Git · Docker · PostgreSQL · Dash · Claude Code</b><span></span></div></li>
+      <li><div><i>Maths</i><b>Probability · statistics · Monte Carlo</b><span></span></div></li>
+    </ul>
+  </section>
+
+  <section class="block" id="work">
+    <h2 class="tiny">05 / Projects</h2>
+    <div>
+      <ul class="rows" id="projects"></ul>
+      <p class="more caps"><a href="work.html">All projects with pictures →</a></p>
+    </div>
+  </section>
+
+  <footer class="foot tiny">
+    <span>© 2026 Subodh Bhagwat</span>
+    <span><a href="mailto:subodh.bhagwat@icloud.com">Email</a><a href="https://www.linkedin.com/in/subodh-bhagwat/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/subodhbgwt" target="_blank" rel="noopener">GitHub</a></span>
+  </footer>
 </main>
 
-<script src="common.js?v=38"></script>
-<script src="data.js?v=38"></script>
-<script src="home.js?v=38"></script>
-<script src="about.js?v=38"></script>
+<script src="common.js?v=40"></script>
+<script src="data.js?v=40"></script>
+<script src="home.js?v=40"></script>
 </body>
 </html>

@@ -19,11 +19,11 @@ body {
   background: var(--paper);
   color: var(--ink);
   overflow: hidden;
-  cursor: none;
 }
 body.dark { background: var(--black); color: var(--white); }
 body.scroll { overflow-y: auto; overflow-x: hidden; }
-a, button { color: inherit; font: inherit; cursor: none; }
+a, button { color: inherit; font: inherit; }
+button { cursor: pointer; }
 button { background: none; border: 0; padding: 0; }
 a { text-decoration: none; }
 :focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
@@ -85,29 +85,6 @@ kbd {
   border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 2px;
 }
 
-/* --- cursor: a chart crosshair with a coordinate readout --- */
-.cur { position: fixed; inset: 0; z-index: 100; pointer-events: none; mix-blend-mode: difference; }
-.cur__h, .cur__v { position: fixed; background: rgba(255,255,255,.22); }
-.cur__h { left: 0; right: 0; top: 0; height: 1px; }
-.cur__v { top: 0; bottom: 0; left: 0; width: 1px; }
-.cur__dot { position: fixed; left: 0; top: 0; width: 5px; height: 5px; margin: -2px 0 0 -2px; background: #fff; }
-.cur__tag { position: fixed; left: 0; top: 0; font: 500 9px/1 var(--mono); letter-spacing: .06em; color: #fff; white-space: pre; font-variant-numeric: tabular-nums; }
-.cur.hover .cur__h, .cur.hover .cur__v, .cur.snap .cur__h, .cur.snap .cur__v { background: rgba(255,255,255,.5); }
-@media (hover: none) { .cur { display: none; } body, a, button { cursor: auto; } }
-
-/* --- page transition: bars rise in a bell shape, middle first --- */
-html.wipe-pending, html.wipe-pending body { background: var(--black); }
-html.wipe-pending body > * { visibility: hidden; }
-.wipe { position: fixed; inset: 0; z-index: 40; display: flex; pointer-events: none; overflow: hidden; }
-.wipe i {
-  flex: 1; height: 100%; margin-right: -1px;
-  background: var(--black); border-top: 2px solid var(--accent);
-  transform: translateY(101%);
-}
-body.wipe-in .wipe i { transform: translateY(0); transition: transform .38s cubic-bezier(.7,0,.3,1) var(--d); }
-body.wipe-shut .wipe i { transform: translateY(0); }
-body.wipe-out .wipe i { transform: translateY(-101%); transition: transform .5s cubic-bezier(.6,0,.2,1) var(--d); }
-
-@media (prefers-reduced-motion: reduce) {
-  .wipe { display: none; }
-}
+/* pages fade into each other where the browser supports it */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
