@@ -13,8 +13,7 @@ setupPage("home");
 
   // --- the chart ---
   const canvas = document.getElementById("home-canvas");
-  const BOLD = ["QUANT RESEARCH", "AI AGENTS", "BACKTESTING", "OPTIONS PRICING", "RISK", "AUTOMATION"];
-  const FAINT = ["LOOK-AHEAD BIAS", "MONTE CARLO", "KTH", "FINANCIAL MATHS"];
+  const WORDS = ["QUANT RESEARCH", "AI AGENTS", "BACKTESTING", "OPTIONS PRICING", "RISK", "AUTOMATION"];
   const INK = "#ececea", BG = "#090909", GREY = "#6f6f6c", ACCENT = "#ff8a1f";
   const SANS = (wt, px) => `${wt} ${px}px Archivo, "Helvetica Neue", Arial, sans-serif`;
   const MONO = (wt, px) => `${wt} ${px}px "IBM Plex Mono", ui-monospace, Menlo, monospace`;
@@ -28,12 +27,7 @@ setupPage("home");
   const next = () => (level = level * 0.985 + gauss() * 0.9);
   const pts = Array.from({ length: N }, next);
 
-  const order = [];
-  for (let i = 0; i < Math.max(BOLD.length, FAINT.length); i++) {
-    if (BOLD[i]) order.push({ t: BOLD[i], bold: true });
-    if (FAINT[i]) order.push({ t: FAINT[i], bold: false });
-  }
-  const flags = order.map((k, j) => ({ ...k, i: Math.round((j + 0.5) * (N / order.length)), up: j % 2 === 0, len: k.bold ? 46 : 30 }));
+  const flags = WORDS.map((t, j) => ({ t, i: Math.round((j + 0.5) * (N / WORDS.length)), up: j % 2 === 0, len: 46 }));
 
   let mouseX = null; // over the chart, for the crosshair
   let shift = 0;     // how far the tape has slid towards the next tick, 0 to 1
@@ -44,7 +38,8 @@ setupPage("home");
     const dx = right / (N - 1);
     const X = (i) => (i - shift) * dx;
     // fixed scale, so the line moves inside the chart rather than the chart rescaling
-    const Y = (i) => mid - pts[i] * h * 0.028;
+    // the line stays inside the chart even on a big swing
+    const Y = (i) => Math.max(8, Math.min(h - 8, mid - pts[i] * h * 0.028));
     const price = (y) => (100 * Math.exp(((mid - y) / (h * 0.028)) * 0.01)).toFixed(2);
 
     ctx.font = MONO(400, 9);
@@ -71,20 +66,22 @@ setupPage("home");
     if (mouseX !== null) for (const f of flags) { const d = Math.abs(X(f.i) - mouseX); if (d < bd) { bd = d; hot = f; } }
     for (const f of flags) {
       const x = X(f.i), y = Y(f.i), on = f === hot;
-      const ty = y + (f.up ? -1 : 1) * f.len;
-      ctx.strokeStyle = on ? ACCENT : f.bold ? "rgba(236,236,234,0.55)" : "rgba(236,236,234,0.22)";
+      // a flag whose label would run off the top or bottom points the other way
+      const up = f.up ? y - f.len - 20 > 0 : y + f.len + 20 > h;
+      const ty = y + (up ? -1 : 1) * f.len;
+      ctx.strokeStyle = on ? ACCENT : "rgba(236,236,234,0.55)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(x + 0.5, y); ctx.lineTo(x + 0.5, ty); ctx.stroke();
       ctx.fillStyle = on ? ACCENT : INK;
       ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
-      ctx.font = f.bold ? SANS(700, 12) : MONO(400, 10);
-      ctx.textBaseline = f.up ? "bottom" : "top";
+      ctx.font = SANS(700, 12);
+      ctx.textBaseline = up ? "bottom" : "top";
       const tw = ctx.measureText(f.t).width;
       const lx = Math.min(x + 5, right - tw);
-      const ly = ty + (f.up ? -3 : 3);
+      const ly = ty + (up ? -3 : 3);
       ctx.fillStyle = BG;
-      ctx.fillRect(lx - 2, f.up ? ly - 15 : ly - 1, tw + 4, 16);
-      ctx.fillStyle = on || f.bold ? INK : GREY;
+      ctx.fillRect(lx - 2, up ? ly - 15 : ly - 1, tw + 4, 16);
+      ctx.fillStyle = INK;
       ctx.fillText(f.t, lx, ly);
     }
 
