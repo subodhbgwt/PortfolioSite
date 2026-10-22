@@ -1,8 +1,8 @@
-/* home: a dark intro with the chart, then everything else printed on
-   continuous-form paper coming out from under a print head */
+/* home: a dark intro with the chart, then the rest laid out like the
+   portfolio table */
 body.scroll .nav { background: inherit; }
 
-.home { max-width: 1040px; margin: 0 auto; padding: 120px var(--pad) 0; }
+.home { max-width: 1040px; margin: 0 auto; padding: 120px var(--pad) 48px; }
 
 .hero { margin-bottom: 64px; }
 .hero__kicker { margin: 0 0 14px; color: var(--white-dim); }
@@ -14,60 +14,33 @@ body.scroll .nav { background: inherit; }
 #home-canvas { display: block; width: 100%; height: clamp(220px, 34vh, 340px); cursor: crosshair; }
 .hero__hint { margin: 10px 0 0; color: var(--white-dim); }
 
-/* the print head: a dark bar with an amber line, the paper feeds out under it */
-.printer__head {
-  position: relative; height: 20px; margin: 0 -12px;
-  background: #1a1a19; border: 1px solid #2a2a28; border-bottom: 0;
-}
-.printer__head::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
-  background: var(--accent); box-shadow: 0 0 10px rgba(255,138,31,.7);
-}
-.printer__head span { position: absolute; right: 14px; top: 4px; color: var(--accent); font-size: 9px; }
-
-/* the paper: faint bars, sprocket holes down both edges, margin lines */
-.sheet {
-  position: relative;
-  padding: 24px 64px 40px;
-  color: var(--ink);
-  background-color: #dcdcd7;
-  background-image:
-    radial-gradient(circle, var(--black) 3.5px, transparent 4px),
-    radial-gradient(circle, var(--black) 3.5px, transparent 4px),
-    repeating-linear-gradient(to bottom, transparent 0 36px, rgba(20,20,19,.045) 36px 72px);
-  background-size: 28px 24px, 28px 24px, auto;
-  background-repeat: repeat-y, repeat-y, repeat;
-  background-position: left 0 top 12px, right 0 top 12px, 0 0;
-}
-.sheet::before, .sheet::after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(20,20,19,.14); }
-.sheet::before { left: 30px; }
-.sheet::after { right: 30px; }
-
-/* each section: a small label on the left, the content on the right */
-.block { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 32px 0; border-top: 1px dashed rgba(20,20,19,.25); scroll-margin-top: 90px; }
-.block:first-child { border-top: 0; }
-.block > h2 { margin: 4px 0 0; color: #4a4a47; font-weight: 500; }
+/* each section: a label on the left, a table on the right */
+.block { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 30px 0; border-top: 1px solid rgba(236,236,234,.16); scroll-margin-top: 90px; }
+.block > h2 { margin: 12px 0 0; color: var(--white-dim); font-weight: 500; }
 .more { margin: 16px 0 0; }
 .more a { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.more a:hover { color: var(--accent); }
 
-/* rows: label, title, and a short note under the title */
+/* rows, styled like the portfolio table */
 .rows { list-style: none; margin: 0; padding: 0; }
-.rows li + li { border-top: 1px solid rgba(20,20,19,.1); }
-.rows a, .rows div { display: grid; grid-template-columns: 96px 1fr; gap: 2px 14px; align-items: baseline; padding: 11px 0; }
-.rows i { grid-row: span 2; font-family: var(--mono); font-style: normal; font-size: 11px; text-transform: uppercase; color: #3d3d3a; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.rows b { font-size: 14px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #141413; }
-.rows span { grid-column: 2; font-family: var(--mono); font-size: 12px; line-height: 1.55; color: #3d3d3a; }
+.rows li { border-bottom: 1px solid rgba(236,236,234,.08); }
+.rows a, .rows div { position: relative; display: grid; grid-template-columns: 96px 1fr; gap: 4px 16px; align-items: baseline; padding: 11px 10px; transition: background-color .2s ease; }
+.rows i { grid-row: span 2; font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--white-dim); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rows b { font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #d9d9d5; }
+.rows span { grid-column: 2; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--white-dim); line-height: 1.6; }
 .rows span:empty { display: none; }
-.rows a:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.rows a:hover, .rows div:hover { background: rgba(236,236,234,.045); }
+.rows a:hover::before, .rows div:hover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+.rows a:hover b, .rows div:hover b { color: var(--white); }
+.rows a:hover i, .rows div:hover i { color: var(--accent); }
 .rows a b::after { content: " →"; }
 
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; border-top: 1px dashed rgba(20,20,19,.25); color: #4a4a47; }
-.foot a:hover { color: #0b0b0b; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; border-top: 1px solid rgba(236,236,234,.16); color: var(--white-dim); }
+.foot a:hover { color: var(--white); }
 .foot span { display: flex; gap: 18px; }
 
 @media (max-width: 700px) {
   .home { padding-top: 100px; }
-  .sheet { padding: 20px 44px 32px; }
   .block { grid-template-columns: 1fr; gap: 12px; }
   .rows a, .rows div { grid-template-columns: 72px 1fr; }
 }
