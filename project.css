@@ -5,7 +5,7 @@ body.scroll .nav { background: inherit; }
 .pj__back a { color: var(--white-dim); }
 .pj__back a:hover { color: var(--white); }
 .pj__kicker { margin: 0 0 12px; color: var(--white-dim); }
-.pj__title { margin: 0 0 14px; font-size: clamp(32px, 5vw, 60px); line-height: 1; font-weight: 800; font-stretch: 112%; letter-spacing: -0.01em; }
+.pj__title { margin: 0 0 14px; font-size: clamp(30px, 4.6vw, 56px); }
 .pj__figure { margin: 0 0 32px; color: var(--accent); }
 
 .pj__shot { margin: 0 0 36px; }
@@ -17,7 +17,7 @@ body.scroll .nav { background: inherit; }
 
 .pj__part { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 22px 0; border-top: 1px solid rgba(236,236,234,.14); }
 .pj__part h2 { margin: 4px 0 0; color: var(--white-dim); font-weight: 500; }
-.pj__part p { margin: 0; font-size: 16px; line-height: 1.65; color: #d9d9d5; }
+.pj__part p { margin: 0; font-size: 14px; line-height: 1.7; color: #d9d9d5; }
 
 .pj__link { margin: 8px 0 40px; padding-top: 22px; border-top: 1px solid rgba(236,236,234,.14); }
 .pj__link:empty { display: none; }

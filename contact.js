@@ -54,12 +54,21 @@ setupPage("contact");
   const M = (K + 1) * N;
   const sx = new Float32Array(M), sy = new Float32Array(M);
 
+  // drawn at 1x: thousands of dots and lines cost four times as much at 2x
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0, still = false;
+  function size() {
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w; canvas.height = h;
+    still = false;
+  }
+  size();
+  window.addEventListener("resize", size);
+
   function frame(now) {
     if (t0 === null) t0 = now;
     // seconds since the page finished loading; with reduced motion, hold on the finished histogram
     const t = REDUCED ? 8 : (now - t0) / 1000;
-    const { ctx, w, h } = fitCanvas(canvas);
-    ctx.clearRect(0, 0, w, h);
 
     // the timeline loops every 16 s: paths turn into dots, the dots fall into the
     // histogram and the curve draws, then it all runs backwards to the paths.
@@ -69,6 +78,12 @@ setupPage("contact");
     const toDots = ramp(u, 2.6, 3.6) * (1 - ramp(u, 13.6, 14.6));
     const fall = smooth(ramp(u, 4.2, 6)) * (1 - smooth(ramp(u, 11.4, 13.2)));
     const curve = ramp(u, 5.9, 7) * (1 - ramp(u, 10.4, 11.2));
+
+    // while the finished histogram is just sitting there, there is nothing to redraw
+    const holding = fall >= 1 && curve >= 1;
+    if (holding && still) return requestAnimationFrame(frame);
+    still = holding;
+    ctx.clearRect(0, 0, w, h);
 
     // the fan stops turning as it falls into the histogram
     if (!REDUCED) spin += 0.002 * (1 - fall);
@@ -84,7 +99,7 @@ setupPage("contact");
 
     const cs = Math.cos(spin), ss = Math.sin(spin), cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     const scale = Math.min(aw * 0.42, ah * 0.42), F = 3.2, cx0 = ax0 + aw / 2, cy0 = ay0 + ah / 2;
-    for (let n = 0; n < N; n++) {
+    if (fall < 1) for (let n = 0; n < N; n++) {
       const P = paths[n];
       for (let k = 0; k <= K; k++) {
         const X = P[k * 3], Y0 = P[k * 3 + 1], Z0 = P[k * 3 + 2];

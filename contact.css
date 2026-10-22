@@ -2,10 +2,11 @@
 #paths { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
 .ct { position: relative; max-width: 1200px; margin: 0 auto; padding: 22vh var(--pad) 60px; }
 .ct > * { max-width: 520px; }
-.ct__title { margin: 0 0 14px; font-size: clamp(40px, 6vw, 76px); line-height: 1; font-weight: 800; font-stretch: 112%; letter-spacing: -0.02em; }
-.ct__lead { margin: 0 0 36px; font-size: 16px; line-height: 1.55; color: #b9b9b5; }
+.ct__title { margin: 0 0 14px; font-size: clamp(36px, 5.6vw, 72px); }
+.ct__lead { margin: 0 0 36px; font-size: 14px; line-height: 1.6; color: #b9b9b5; }
 .ct__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(236,236,234,.16); }
-.ct__list li { display: grid; grid-template-columns: 110px 1fr; align-items: baseline; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(236,236,234,.16); font-size: clamp(16px, 1.6vw, 20px); }
+.ct__list li { display: grid; grid-template-columns: 110px 1fr; align-items: baseline; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(236,236,234,.16); }
+.ct__list a, .ct__list span { font-family: var(--font); font-size: 15px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .ct__list i { font-style: normal; color: var(--white-dim); }
 .ct__list a:hover { color: var(--accent); }
 

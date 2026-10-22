@@ -30,7 +30,7 @@
 .row i { font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; }
 .row__year { text-align: right; }
 .row__name { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.row__name b { font-size: 14px; font-weight: 700; letter-spacing: .06em; color: #b9b9b5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .2s ease; }
+.row__name b { font-family: var(--font); text-transform: uppercase; font-size: 14px; font-weight: 700; letter-spacing: .06em; color: #b9b9b5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .2s ease; }
 .row__name small { font-family: var(--mono); font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .row__trace { width: 120px; height: 26px; display: block; }
 .row.on { background: rgba(236,236,234,.045); color: var(--white); }
@@ -51,10 +51,10 @@
 .port__shot img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(1); opacity: .8; transition: opacity .3s; }
 .port__shot.invert img { filter: grayscale(1) invert(1) contrast(1.1); }
 .port__shot:hover img { opacity: 1; }
-.port__shot span { font-size: clamp(22px, 2.6vw, 38px); font-weight: 900; font-stretch: 112%; text-align: center; padding: 0 24px; color: rgba(236,236,234,.14); line-height: 1; }
+.port__shot span { font-family: var(--font); text-transform: uppercase; font-size: clamp(22px, 2.6vw, 38px); font-weight: 800; font-stretch: 112%; text-align: center; padding: 0 24px; color: rgba(236,236,234,.14); line-height: 1; }
 .port__preview p { margin: 0; }
 #pcap { color: var(--white-dim); }
-#ptitle { margin: 0; font-size: clamp(22px, 2.2vw, 32px); font-weight: 800; font-stretch: 108%; line-height: 1.05; }
+#ptitle { margin: 0; font-family: var(--font); text-transform: uppercase; font-size: clamp(20px, 2vw, 28px); font-weight: 800; font-stretch: 108%; line-height: 1.05; }
 #ptext { font-size: 13px; line-height: 1.6; color: #c9c9c5; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 #pfig { color: var(--accent); }
 #popen { align-self: flex-start; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
