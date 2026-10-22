@@ -75,8 +75,15 @@ setupPage("contact");
     yaw += (tYaw - yaw) * 0.06;
     pitch += (tPitch - pitch) * 0.06;
 
+    // on wide screens the animation has the right half to itself, next to the details;
+    // on narrow ones it sits faintly behind them
+    const wide = w >= 900;
+    const ax0 = wide ? w * 0.52 : 0, ax1 = wide ? w - 40 : w;
+    const ay0 = wide ? h * 0.2 : h * 0.15, ay1 = wide ? h * 0.82 : h * 0.95;
+    const aw = ax1 - ax0, ah = ay1 - ay0;
+
     const cs = Math.cos(spin), ss = Math.sin(spin), cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-    const scale = Math.min(w * 0.42, h * 0.38), F = 3.2, cx0 = w * 0.62, cy0 = h * 0.52;
+    const scale = Math.min(aw * 0.42, ah * 0.42), F = 3.2, cx0 = ax0 + aw / 2, cy0 = ay0 + ah / 2;
     for (let n = 0; n < N; n++) {
       const P = paths[n];
       for (let k = 0; k <= K; k++) {
@@ -103,10 +110,10 @@ setupPage("contact");
       }
     }
 
-    // the histogram sits low on the page, under the details
-    const hw = Math.min(w * 0.8, 900), base = h * 0.92;
-    const colW = hw / NB, hx0 = (w - hw) / 2;
-    const pitchY = Math.min(4, (h * 0.42) / tallest);
+    // the histogram forms in the same space the fan was in
+    const hw = aw * 0.9, base = ay1;
+    const colW = hw / NB, hx0 = ax0 + (aw - hw) / 2;
+    const pitchY = Math.min(4, (ah * 0.85) / tallest);
     const r = Math.max(1.4, Math.min(3, pitchY - 0.6, colW * 0.42));
 
     if (toDots > 0) {
