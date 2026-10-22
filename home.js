@@ -20,7 +20,7 @@ setupPage("home");
   const next = () => (level = level * 0.985 + gauss() * 0.9);
   const pts = Array.from({ length: N }, next);
 
-  const flags = WORDS.map((t, j) => ({ t, i: Math.round((j + 0.5) * (N / WORDS.length)), up: j % 2 === 0, len: 46 }));
+  const flags = WORDS.map((t, j) => ({ t, i: Math.round((j + 0.5) * (N / WORDS.length)), up: j % 2 === 0 }));
 
   let mouseX = null; // over the chart, for the crosshair
   let shift = 0;     // how far the tape has slid towards the next tick, 0 to 1
@@ -57,25 +57,46 @@ setupPage("home");
     // flags, and which one the crosshair is on
     let hot = null, bd = 30;
     if (mouseX !== null) for (const f of flags) { const d = Math.abs(X(f.i) - mouseX); if (d < bd) { bd = d; hot = f; } }
+    // place the labels left to right; each one tries its usual side first, then
+    // longer stems and the other side, until it doesn't overlap a label already
+    // placed. Stem lengths ease towards their new value so labels glide.
+    const size = w < 500 ? 10 : 12;
+    ctx.font = SANS(700, size);
+    const placed = [];
+    const clash = (r) => placed.some((q) => r.x < q.x + q.w && r.x + r.w > q.x && r.y < q.y + q.h && r.y + r.h > q.y);
+    for (const f of [...flags].sort((a, b) => a.i - b.i)) {
+      const x = X(f.i), y = Y(f.i), tw = ctx.measureText(f.t).width;
+      const lx = Math.min(Math.max(x + 5, 2), right - tw);
+      let pick = null;
+      const tries = [];
+      for (let level = 0; level < 4; level++) for (const up of [f.up, !f.up]) tries.push({ up, len: 34 + level * 20 });
+      for (const tr of tries) {
+        const ty = y + (tr.up ? -1 : 1) * tr.len;
+        const box = { x: lx - 3, y: tr.up ? ty - size - 6 : ty + 1, w: tw + 6, h: size + 6 };
+        if (box.y < 0 || box.y + box.h > h || clash(box)) continue;
+        pick = tr; placed.push(box); break;
+      }
+      f.show = !!pick;
+      if (!pick) continue;
+      if (f.dir !== pick.up) { f.dir = pick.up; f.cur = pick.len; } // switching sides jumps; length changes glide
+      f.cur = f.cur === undefined ? pick.len : f.cur + (pick.len - f.cur) * 0.15;
+      f.lx = lx; f.tw = tw;
+    }
     for (const f of flags) {
       const x = X(f.i), y = Y(f.i), on = f === hot;
-      // a flag whose label would run off the top or bottom points the other way
-      const up = f.up ? y - f.len - 20 > 0 : y + f.len + 20 > h;
-      const ty = y + (up ? -1 : 1) * f.len;
+      ctx.fillStyle = on ? ACCENT : INK;
+      ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
+      if (!f.show) continue;
+      const up = f.dir, ty = y + (up ? -1 : 1) * f.cur;
       ctx.strokeStyle = on ? ACCENT : "rgba(236,236,234,0.55)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(x + 0.5, y); ctx.lineTo(x + 0.5, ty); ctx.stroke();
-      ctx.fillStyle = on ? ACCENT : INK;
-      ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
-      ctx.font = SANS(700, 12);
       ctx.textBaseline = up ? "bottom" : "top";
-      const tw = ctx.measureText(f.t).width;
-      const lx = Math.min(x + 5, right - tw);
       const ly = ty + (up ? -3 : 3);
       ctx.fillStyle = BG;
-      ctx.fillRect(lx - 2, up ? ly - 15 : ly - 1, tw + 4, 16);
+      ctx.fillRect(f.lx - 2, up ? ly - size - 3 : ly - 1, f.tw + 4, size + 4);
       ctx.fillStyle = INK;
-      ctx.fillText(f.t, lx, ly);
+      ctx.fillText(f.t, f.lx, ly);
     }
 
     // crosshair with the price where it meets the line
