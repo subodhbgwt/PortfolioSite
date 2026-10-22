@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<script>try{if(sessionStorage.getItem("wipe")==="1")document.documentElement.classList.add("wipe-pending")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Subodh Bhagwat · KTH, Stockholm</title>
 <meta name="description" content="Subodh Bhagwat studies Computer Science and Engineering at KTH in Stockholm, heading into Financial Mathematics. Trading tools, Monte Carlo simulations and AI agents." />
@@ -21,10 +22,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="common.css?v=40" />
-<link rel="stylesheet" href="style.css?v=40" />
+<link rel="stylesheet" href="common.css?v=41" />
+<link rel="stylesheet" href="style.css?v=41" />
 </head>
-<body class="scroll">
+<body class="dark scroll">
 
 <main class="home">
   <section class="hero">
@@ -33,8 +34,12 @@
     <p class="hero__lead">I study Computer Science &amp; Engineering at KTH and build tools for markets and data, then spend most of my time checking whether the numbers hold up.</p>
     <p class="hero__links caps"><a href="work.html">See my projects</a><a href="#about">About me</a><a href="contact.html">Contact</a></p>
     <canvas id="home-canvas" aria-hidden="true"></canvas>
+    <p class="tiny hero__hint">Move your mouse to run the tape</p>
   </section>
 
+  <div class="printer">
+  <div class="printer__head" aria-hidden="true"><span class="tiny">Printing · subodhb.com</span></div>
+  <div class="sheet">
   <section class="block" id="about">
     <h2 class="tiny">01 / About</h2>
     <div>
@@ -92,10 +97,12 @@
     <span>© 2026 Subodh Bhagwat</span>
     <span><a href="mailto:subodh.bhagwat@icloud.com">Email</a><a href="https://www.linkedin.com/in/subodh-bhagwat/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/subodhbgwt" target="_blank" rel="noopener">GitHub</a></span>
   </footer>
+  </div>
+  </div>
 </main>
 
-<script src="common.js?v=40"></script>
-<script src="data.js?v=40"></script>
-<script src="home.js?v=40"></script>
+<script src="common.js?v=41"></script>
+<script src="data.js?v=41"></script>
+<script src="home.js?v=41"></script>
 </body>
 </html>

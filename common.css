@@ -85,6 +85,19 @@ kbd {
   border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 2px;
 }
 
-/* pages fade into each other where the browser supports it */
-@view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
+/* --- page transition: bars rise in a bell shape, middle first --- */
+html.wipe-pending, html.wipe-pending body { background: var(--black); }
+html.wipe-pending body > * { visibility: hidden; }
+.wipe { position: fixed; inset: 0; z-index: 40; display: flex; pointer-events: none; overflow: hidden; }
+.wipe i {
+  flex: 1; height: 100%; margin-right: -1px;
+  background: var(--black); border-top: 2px solid var(--accent);
+  transform: translateY(101%);
+}
+body.wipe-in .wipe i { transform: translateY(0); transition: transform .26s cubic-bezier(.7,0,.3,1) var(--d); }
+body.wipe-shut .wipe i { transform: translateY(0); }
+body.wipe-out .wipe i { transform: translateY(-101%); transition: transform .34s cubic-bezier(.6,0,.2,1) var(--d); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe { display: none; }
+}
