@@ -5,7 +5,6 @@ body.scroll .nav { background: inherit; }
 .home { max-width: 1040px; margin: 0 auto; padding: 120px var(--pad) 48px; }
 
 .hero { margin-bottom: 64px; }
-.hero__kicker { margin: 0 0 14px; color: var(--white-dim); }
 .hero h1 { margin: 0 0 20px; font-size: clamp(36px, 6.4vw, 84px); }
 .hero__lead { margin: 0 0 26px; max-width: 46ch; font-size: 14px; line-height: 1.6; color: #c9c9c5; }
 .hero__links { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 40px; }

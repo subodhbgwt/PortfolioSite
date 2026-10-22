@@ -68,9 +68,32 @@ function buildCurtain() {
   });
 }
 
+// smooth wheel scrolling on pages that scroll: the wheel sets a target and
+// the page eases towards it. Touch and keyboard scrolling are left alone.
+function smoothScroll() {
+  if (REDUCED || !document.body.classList.contains("scroll")) return;
+  const el = document.scrollingElement; // body.scroll's overflow is handed up to the page
+  let target = el.scrollTop, running = false;
+  const max = () => el.scrollHeight - el.clientHeight;
+  function step() {
+    const y = el.scrollTop + (target - el.scrollTop) * 0.12;
+    el.scrollTo({ top: Math.abs(target - y) < 0.5 ? target : y, behavior: "instant" });
+    if (Math.abs(el.scrollTop - target) > 0.5) requestAnimationFrame(step);
+    else running = false;
+  }
+  window.addEventListener("wheel", (e) => {
+    if (e.ctrlKey) return; // pinch zoom
+    e.preventDefault();
+    const d = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * el.clientHeight : e.deltaY;
+    target = Math.max(0, Math.min(max(), (running ? target : el.scrollTop) + d));
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }, { passive: false });
+}
+
 function setupPage(current) {
   buildNav(current);
   buildCurtain();
+  smoothScroll();
 }
 
 // a canvas that tracks its size and device pixel ratio

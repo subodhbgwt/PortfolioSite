@@ -1,16 +1,9 @@
 // Home: a price chart under the intro, with the things I work on flagged on it.
 // The tape ticks along on its own, sliding smoothly between ticks. Over the
-// chart a crosshair reads off the price. The project list further down is
-// built from data.js.
+// chart a crosshair reads off the price.
 setupPage("home");
 
 (() => {
-  // --- the project list ---
-  const list = document.getElementById("projects");
-  list.innerHTML = PROJECTS.map((p) =>
-    `<li><a href="project.html?p=${p.slug}"><i>${p.year}</i><b>${p.name}</b><span>${p.text.split(". ")[0]}.</span></a></li>`
-  ).join("");
-
   // --- the chart ---
   const canvas = document.getElementById("home-canvas");
   const WORDS = ["QUANT RESEARCH", "AI AGENTS", "BACKTESTING", "OPTIONS PRICING", "RISK", "AUTOMATION"];
